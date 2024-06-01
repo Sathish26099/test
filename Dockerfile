@@ -1,7 +1,15 @@
-FROM python:3.9  
-WORKDIR /code
-COPY ./requirements.txt /code/requirements.txt
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-COPY ./main.py /code/main.py
-COPY ./form.html /code/form.html
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+# Use an official Tomcat runtime as a parent image
+FROM tomcat:9.0
+
+# Set the working directory to the Tomcat webapps directory
+WORKDIR /usr/local/tomcat/webapps
+
+# Copy the web application (WAR file) into the Tomcat webapps directory
+COPY sample.war .
+
+# Expose port 8080 to the outside world
+EXPOSE 8080
+
+# Run Tomcat server
+CMD ["catalina.sh", "run"]
+
