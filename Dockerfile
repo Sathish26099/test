@@ -7,6 +7,9 @@ WORKDIR /usr/local/tomcat/webapps
 # Copy the web application (WAR file) into the Tomcat webapps directory
 COPY sample.war .
 
+# Delete the sample.war file
+RUN rm sample.war
+
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
